@@ -1,3 +1,3 @@
 # getnextline
 # in process.
-# check if
+# check if is available.
