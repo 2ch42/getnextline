@@ -10,7 +10,35 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <unistd.h>
+#include <stdlib.h>
+
+void	ft_putstr_fd(char *s, int fd)
+{
+	int	i;
+
+	i = 0;
+	while (*(s + i))
+	{
+		write(fd, s + i, 1);
+		i++;
+	}
+}
+
+void	*ft_memset(void *b, int c, size_t len)
+{
+	unsigned int	i;
+	unsigned char	*str;
+
+	str = (unsigned char *)b;
+	i = 0;
+	while (i < len)
+	{
+		*(str + i) = (unsigned char)c;
+		i++;
+	}
+	return (b);
+}
 
 size_t	ft_strlen(const	char *s)
 {
