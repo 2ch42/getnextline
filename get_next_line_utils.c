@@ -6,24 +6,12 @@
 /*   By: changhyl <changhyl@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 10:15:19 by changhyl          #+#    #+#             */
-/*   Updated: 2022/12/07 22:19:22 by changhyl         ###   ########.fr       */
+/*   Updated: 2022/12/21 19:02:46 by changhyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdlib.h>
-
-void	ft_putstr_fd(char *s, int fd)
-{
-	int	i;
-
-	i = 0;
-	while (*(s + i))
-	{
-		write(fd, s + i, 1);
-		i++;
-	}
-}
 
 void	*ft_memset(void *b, int c, size_t len)
 {
@@ -101,5 +89,27 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		j++;
 	}
 	*(ret_str + s1_len + s2_len) = '\0';
+	return (ret_str);
+}
+
+char	*ft_substr(char *s, unsigned int start, size_t len)
+{
+	char		*ret_str;
+	size_t		i;
+	size_t		real_len;
+
+	i = 0;
+	real_len = 0;
+	while (real_len + start < ft_strlen(s) && real_len < len)
+		real_len++;
+	ret_str = (char *)malloc(sizeof(char) * (real_len + 1));
+	if (!ret_str)
+		return (NULL);
+	while (i < real_len)
+	{
+		*(ret_str + i) = *(s + start + i);
+		i++;
+	}
+	*(ret_str + i) = '\0';
 	return (ret_str);
 }
