@@ -6,12 +6,12 @@
 /*   By: changhyl <changhyl@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 10:14:56 by changhyl          #+#    #+#             */
-/*   Updated: 2022/12/21 19:10:07 by changhyl         ###   ########.fr       */
+/*   Updated: 2022/12/21 23:03:02 by changhyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
-
+#include <stdio.h>
 #include "get_next_line.h"
 
 static int	check_nl(char *str)
@@ -33,12 +33,43 @@ static char	*get_new_str(char *str)
 	int		idx;
 	char	*ret_str;
 
-	if (str == NULL)
+	if (!str)
+	{
+		free(str);
 		return (NULL);
+	}
 	idx = check_nl(str);
 	if (idx == -1)
+	{
+		str = NULL;
+		free(str);
 		return (NULL);
-	return (ft_substr(str, idx + 1, ft_strlen(str) - idx - 1));
+	}
+	ret_str = ft_substr(str, idx + 1, ft_strlen(str) - idx - 1);
+	str = NULL;
+	free(str);
+	return (ret_str);
+}
+
+static char	*get_ret_str(char *str)
+{
+	char	*ret_str;
+
+	if (!str)
+	{
+		free(str);
+		return (NULL);
+	}
+	if (check_nl(str) == -1)
+	{
+		ret_str = ft_strdup(str);
+		str = NULL;
+		free(str);
+		return (ret_str);
+	}
+	ret_str = ft_substr(str, 0, check_nl(str) - 1);
+	free (str);
+	return (ret_str);
 }
 
 char	*get_next_line(int fd)
@@ -50,54 +81,18 @@ char	*get_next_line(int fd)
 	if (read(fd, 0, 0) < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	read_buf = get_new_str(read_buf);
-	if (!read_buf)
-		free(read_buf);
 	while (1)
 	{
 		ft_memset(buf, 0, BUFFER_SIZE + 1);
 		read_result = read(fd, buf, BUFFER_SIZE);
 		if (read_result <= 0)
 			break ;
-		buf[BUFFER_SIZE] = '\0';
-		read_buf = ft_strjoin(read_buf, buf);
+		if (!read_buf)
+			read_buf = ft_strdup(buf);
+		else
+			read_buf = ft_strjoin(read_buf, buf);
 		if (check_nl(read_buf) != -1)
 			break ;
 	}
-	return (read_buf);
+	return (get_ret_str(read_buf));
 }
-
-//ssize_t read(int fd, void *buf, size_t nbyte);
-
-
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <fcntl.h>
-#include <string.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-/*
-int main()
-{
-	char buf [11];
-	int fd = open("./practice.txt", O_RDONLY);
-	int i = 0;
-	while (1)
-	{
-		memset(buf, 0, 11);
-		int result = read(fd, buf, 10);
-		if (result <= 0) break;
-		printf("%d\n", result);
-		i++;
-	}
-	return (0);
-}
-*/
-/*
-int main()
-{
-	int fd = open("./practice.txt", O_RDONLY);
-	char *s = get_next_line(fd);
-	printf("%s", s);
-}
-*/
