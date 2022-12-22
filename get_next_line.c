@@ -6,7 +6,7 @@
 /*   By: changhyl <changhyl@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 10:14:56 by changhyl          #+#    #+#             */
-/*   Updated: 2022/12/21 23:03:02 by changhyl         ###   ########.fr       */
+/*   Updated: 2022/12/22 20:59:10 by changhyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,17 @@ static char	*get_new_str(char *str)
 	char	*ret_str;
 
 	if (!str)
-	{
-		free(str);
 		return (NULL);
-	}
 	idx = check_nl(str);
 	if (idx == -1)
 	{
-		str = NULL;
 		free(str);
+		str = NULL;
 		return (NULL);
 	}
 	ret_str = ft_substr(str, idx + 1, ft_strlen(str) - idx - 1);
-	str = NULL;
 	free(str);
+	str = NULL;
 	return (ret_str);
 }
 
@@ -56,19 +53,10 @@ static char	*get_ret_str(char *str)
 	char	*ret_str;
 
 	if (!str)
-	{
-		free(str);
 		return (NULL);
-	}
 	if (check_nl(str) == -1)
-	{
-		ret_str = ft_strdup(str);
-		str = NULL;
-		free(str);
-		return (ret_str);
-	}
-	ret_str = ft_substr(str, 0, check_nl(str) - 1);
-	free (str);
+		return (str);
+	ret_str = ft_substr(str, 0, check_nl(str) + 1);
 	return (ret_str);
 }
 
@@ -91,6 +79,8 @@ char	*get_next_line(int fd)
 			read_buf = ft_strdup(buf);
 		else
 			read_buf = ft_strjoin(read_buf, buf);
+		if (!read_buf)
+			return (NULL);
 		if (check_nl(read_buf) != -1)
 			break ;
 	}

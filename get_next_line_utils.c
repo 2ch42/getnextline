@@ -6,7 +6,7 @@
 /*   By: changhyl <changhyl@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 10:15:19 by changhyl          #+#    #+#             */
-/*   Updated: 2022/12/21 21:56:23 by changhyl         ###   ########.fr       */
+/*   Updated: 2022/12/22 20:38:39 by changhyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ size_t	ft_strlen(const	char *s)
 	return (len);
 }
 
-char	*ft_strdup(const char *s1)
+char	*ft_strdup(char *s1)
 {
 	int		len;
 	int		i;
@@ -63,13 +63,12 @@ char	*ft_strdup(const char *s1)
 	return (str);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*ret_str;
 	size_t	s1_len;
 	size_t	s2_len;
 	size_t	i;
-	size_t	j;
 
 	s1_len = ft_strlen(s1);
 	s2_len = ft_strlen(s2);
@@ -77,18 +76,19 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	if (!ret_str)
 		return (NULL);
 	i = 0;
-	j = 0;
 	while (i < s1_len)
 	{
 		*(ret_str + i) = *(s1 + i);
 		i++;
 	}
-	while (j < s2_len)
+	while (i < s2_len + s1_len)
 	{
-		*(ret_str + s1_len + j) = *(s2 + j);
-		j++;
+		*(ret_str + i) = *(s2 + i - s1_len);
+		i++;
 	}
-	*(ret_str + s1_len + s2_len) = '\0';
+	*(ret_str + i) = '\0';
+	free(s1);
+	s1 = NULL;
 	return (ret_str);
 }
 
