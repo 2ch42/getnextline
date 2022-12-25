@@ -6,7 +6,7 @@
 /*   By: changhyl <changhyl@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 10:14:56 by changhyl          #+#    #+#             */
-/*   Updated: 2022/12/25 15:29:52 by changhyl         ###   ########.fr       */
+/*   Updated: 2022/12/25 17:12:25 by changhyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,7 @@ static char	*get_new_str(char *str)
 		return (NULL);
 	idx = check_nl(str);
 	if (idx == -1)
-	{
-		str = NULL;
 		return (NULL);
-	}
 	ret_str = ft_substr(str, idx + 1, ft_strlen(str) - idx - 1);
 	free(str);
 	str = NULL;
