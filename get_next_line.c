@@ -6,7 +6,7 @@
 /*   By: changhyl <changhyl@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 10:14:56 by changhyl          #+#    #+#             */
-/*   Updated: 2022/12/25 14:34:27 by changhyl         ###   ########.fr       */
+/*   Updated: 2022/12/25 15:29:52 by changhyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,12 @@ static char	*get_ret_str(char *str)
 
 	if (!str)
 		return (NULL);
+	if (ft_strlen(str) == 0)
+	{
+		free(str);
+		str = NULL;
+		return (NULL);
+	}
 	if (check_nl(str) == -1)
 		return (str);
 	ret_str = ft_substr(str, 0, check_nl(str) + 1);

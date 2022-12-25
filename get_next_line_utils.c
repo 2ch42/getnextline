@@ -6,7 +6,7 @@
 /*   By: changhyl <changhyl@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 10:15:19 by changhyl          #+#    #+#             */
-/*   Updated: 2022/12/25 14:24:36 by changhyl         ###   ########.fr       */
+/*   Updated: 2022/12/25 15:25:54 by changhyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,10 @@ void	*ft_memset(void *b, int c, size_t len)
 size_t	ft_strlen(const	char *s)
 {
 	int	len;
-	int	i;
 
 	len = 0;
-	i = 0;
-	while (*(s + i) != '\0')
-	{
+	while (*(s + len) != '\0')
 		len++;
-		i++;
-	}
 	return (len);
 }
 
