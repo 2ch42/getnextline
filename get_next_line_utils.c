@@ -6,7 +6,7 @@
 /*   By: changhyl <changhyl@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 10:15:19 by changhyl          #+#    #+#             */
-/*   Updated: 2022/12/25 15:25:54 by changhyl         ###   ########.fr       */
+/*   Updated: 2022/12/30 20:33:08 by changhyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*ft_strdup(char *s1)
 	len = ft_strlen(s1);
 	str = (char *)malloc(sizeof(char) * (len + 1));
 	i = 0;
-	if (!str)
+	if (!str || !s1)
 		return (NULL);
 	while (*(s1 + i))
 	{
