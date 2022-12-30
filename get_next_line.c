@@ -6,7 +6,7 @@
 /*   By: changhyl <changhyl@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 10:14:56 by changhyl          #+#    #+#             */
-/*   Updated: 2022/12/25 17:12:25 by changhyl         ###   ########.fr       */
+/*   Updated: 2022/12/30 20:16:50 by changhyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static char	*get_ret_str(char *str)
 
 	if (!str)
 		return (NULL);
-	if (ft_strlen(str) == 0)
+	if (*str == '\0')
 	{
 		free(str);
 		str = NULL;
