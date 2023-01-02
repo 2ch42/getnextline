@@ -6,12 +6,10 @@
 /*   By: changhyl <changhyl@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 10:14:56 by changhyl          #+#    #+#             */
-/*   Updated: 2023/01/02 18:15:54 by changhyl         ###   ########.fr       */
+/*   Updated: 2023/01/02 22:12:27 by changhyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdio.h>
 #include "get_next_line.h"
 
 static int	check_nl(char *str)

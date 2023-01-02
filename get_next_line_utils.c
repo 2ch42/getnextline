@@ -6,12 +6,10 @@
 /*   By: changhyl <changhyl@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 10:15:19 by changhyl          #+#    #+#             */
-/*   Updated: 2023/01/02 18:07:27 by changhyl         ###   ########.fr       */
+/*   Updated: 2023/01/02 22:07:13 by changhyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdlib.h>
 #include "get_next_line.h"
 
 void	*ft_memset(void *b, int c, size_t len)
