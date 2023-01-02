@@ -6,12 +6,13 @@
 /*   By: changhyl <changhyl@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 10:15:19 by changhyl          #+#    #+#             */
-/*   Updated: 2022/12/30 20:33:08 by changhyl         ###   ########.fr       */
+/*   Updated: 2023/01/02 18:07:27 by changhyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdlib.h>
+#include "get_next_line.h"
 
 void	*ft_memset(void *b, int c, size_t len)
 {
@@ -44,11 +45,13 @@ char	*ft_strdup(char *s1)
 	int		i;
 	char	*str;
 
+	if (!s1)
+		return (NULL);
 	len = ft_strlen(s1);
 	str = (char *)malloc(sizeof(char) * (len + 1));
-	i = 0;
-	if (!str || !s1)
+	if (!str)
 		return (NULL);
+	i = 0;
 	while (*(s1 + i))
 	{
 		*(str + i) = *(s1 + i);
@@ -69,7 +72,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	s2_len = ft_strlen(s2);
 	ret_str = (char *)malloc(sizeof(char) * (s1_len + s2_len + 1));
 	if (!ret_str)
-		return (NULL);
+		return (ft_clear_str(&s1));
 	i = 0;
 	while (i < s1_len)
 	{
