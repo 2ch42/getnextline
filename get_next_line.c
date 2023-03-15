@@ -100,3 +100,23 @@ char	*get_next_line(int fd)
 	read_buf = get_new_buf(read_buf);
 	return (ret_str);
 }
+
+/*
+#include <fcntl.h>
+#include <stdio.h>
+
+int main()
+{
+	char *s;
+
+	int fd = open("./test.txt", O_RDONLY);
+	while (1)
+	{
+		s = get_next_line(fd);
+		if (s == NULL)
+			break;
+		printf("%s", s);
+	}
+	return (0);
+}
+*/
