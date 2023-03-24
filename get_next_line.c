@@ -68,10 +68,8 @@ static char	*get_new_buf(char *str)
 		return (ft_clear_str(&str));
 	idx = check_nl(str);
 	len = ft_strlen(str);
-	if (idx == -1 && len != 0)
-		return (NULL);
 	if (idx == -1)
-		return (ft_clear_str(&str));
+		return (NULL);
 	ret_str = ft_substr(str, idx + 1, len - idx - 1);
 	free(str);
 	str = NULL;
