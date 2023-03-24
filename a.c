@@ -38,44 +38,37 @@ char	*ft_clear_str(char **str)
 	return (NULL);
 }
 
-static char	*get_ret_str(char **str)
-{
-	char	*ret_str;
-	int		idx;
-
-	if (!(*str))
-		return (NULL);
-	if (**str == '\0')
-		return (NULL);
-	idx = check_nl(*str);
-	if (idx == -1)
-		return (*str);
-	ret_str = ft_substr(*str, 0, idx + 1);
-	if (!ret_str)
-		return (ft_clear_str(str));
-	return (ret_str);
-}
-
-static char	*get_new_buf(char *str)
+static void	get_ret_str(char **buf_addr, char **ret_addr)
 {
 	int		idx;
 	int		len;
-	char	*ret_str;
 
-	if (!str)
-		return (NULL);
-	if (*str == '\0')
-		return (ft_clear_str(&str));
-	idx = check_nl(str);
-	len = ft_strlen(str);
-	if (idx == -1 && len != 0)
-		return (NULL);
+	if (!(*buf_addr))
+	{
+		*ret_addr = NULL;
+		return ;
+	}
+	else if (**buf_addr == '\0')
+	{
+		*ret_addr = ft_clear_str(buf_addr);
+		return ;
+	}
+	idx = check_nl(*buf_addr);
+	len = ft_strlen(*buf_addr);
 	if (idx == -1)
-		return (ft_clear_str(&str));
-	ret_str = ft_substr(str, idx + 1, len - idx - 1);
-	free(str);
-	str = NULL;
-	return (ret_str);
+	{
+		*ret_addr = *buf_addr;
+		if (len != 0)
+			*buf_addr = NULL;
+		return ;
+	}
+	*ret_addr = ft_substr(*buf_addr, 0, idx + 1);
+	if (!(*ret_addr))
+		ft_clear_str(buf_addr);
+	*buf_addr = ft_substr(*buf_addr, idx + 1, len - idx - 1);
+	if (!(*buf_addr))
+		ft_clear_str(buf_addr);
+	return ;
 }
 
 char	*get_next_line(int fd)
@@ -100,7 +93,6 @@ char	*get_next_line(int fd)
 		if (check_nl(read_buf) != -1)
 			break ;
 	}
-	ret_str = get_ret_str(&read_buf);
-	read_buf = get_new_buf(read_buf);
+	get_ret_str(&read_buf, &ret_str);
 	return (ret_str);
 }
