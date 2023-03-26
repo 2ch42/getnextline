@@ -6,7 +6,7 @@
 /*   By: changhyl <changhyl@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 21:21:04 by changhyl          #+#    #+#             */
-/*   Updated: 2023/01/02 22:09:11 by changhyl         ###   ########.fr       */
+/*   Updated: 2023/03/26 18:09:37 by changhyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@
 void	*ft_memset(void *b, int c, size_t len);
 size_t	ft_strlen(const char *s);
 char	*ft_clear_str(char **str);
-char	*ft_strdup(char *s1);
-char	*ft_strjoin(char *s1, char *s2);
-char	*get_next_line(int fd);
+char	*ft_strdup(char *s1, int len);
+char	*ft_strjoin(char *s1, char *s2, int s2_len);
 char	*ft_substr(char *s, unsigned int start, size_t len);
+char	*get_next_line(int fd);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: changhyl <changhyl@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 10:15:19 by changhyl          #+#    #+#             */
-/*   Updated: 2023/01/02 22:07:13 by changhyl         ###   ########.fr       */
+/*   Updated: 2023/03/26 15:54:22 by changhyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,13 @@ size_t	ft_strlen(const	char *s)
 	return (len);
 }
 
-char	*ft_strdup(char *s1)
+char	*ft_strdup(char *s1, int len)
 {
-	int		len;
 	int		i;
 	char	*str;
 
 	if (!s1)
 		return (NULL);
-	len = ft_strlen(s1);
 	str = (char *)malloc(sizeof(char) * (len + 1));
 	if (!str)
 		return (NULL);
@@ -59,15 +57,13 @@ char	*ft_strdup(char *s1)
 	return (str);
 }
 
-char	*ft_strjoin(char *s1, char *s2)
+char	*ft_strjoin(char *s1, char *s2, int s2_len)
 {
 	char	*ret_str;
 	size_t	s1_len;
-	size_t	s2_len;
 	size_t	i;
 
 	s1_len = ft_strlen(s1);
-	s2_len = ft_strlen(s2);
 	ret_str = (char *)malloc(sizeof(char) * (s1_len + s2_len + 1));
 	if (!ret_str)
 		return (ft_clear_str(&s1));

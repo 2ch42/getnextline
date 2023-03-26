@@ -6,7 +6,7 @@
 /*   By: changhyl <changhyl@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 10:14:56 by changhyl          #+#    #+#             */
-/*   Updated: 2023/01/03 21:40:12 by changhyl         ###   ########.fr       */
+/*   Updated: 2023/03/26 18:07:08 by changhyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,27 +38,24 @@ char	*ft_clear_str(char **str)
 	return (NULL);
 }
 
-static char	*get_ret_str(char **str)
+static char	*get_ret_str(char **str, int *idx_addr)
 {
 	char	*ret_str;
-	int		idx;
 
 	if (!(*str))
 		return (NULL);
 	if (**str == '\0')
 		return (NULL);
-	idx = check_nl(*str);
-	if (idx == -1)
+	if (*idx_addr == -1)
 		return (*str);
-	ret_str = ft_substr(*str, 0, idx + 1);
+	ret_str = ft_substr(*str, 0, *idx_addr + 1);
 	if (!ret_str)
 		return (ft_clear_str(str));
 	return (ret_str);
 }
 
-static char	*get_new_buf(char *str)
+static char	*get_new_buf(char *str, int *idx_addr)
 {
-	int		idx;
 	int		len;
 	char	*ret_str;
 
@@ -66,11 +63,10 @@ static char	*get_new_buf(char *str)
 		return (NULL);
 	if (*str == '\0')
 		return (ft_clear_str(&str));
-	idx = check_nl(str);
 	len = ft_strlen(str);
-	if (idx == -1)
+	if (*idx_addr == -1)
 		return (NULL);
-	ret_str = ft_substr(str, idx + 1, len - idx - 1);
+	ret_str = ft_substr(str, *idx_addr + 1, len - *idx_addr - 1);
 	free(str);
 	str = NULL;
 	return (ret_str);
@@ -82,6 +78,7 @@ char	*get_next_line(int fd)
 	char		*ret_str;
 	static char	*read_buf;
 	int			read_result;
+	int			idx;
 
 	if (read(fd, 0, 0) < 0 || BUFFER_SIZE <= 0)
 		return (ft_clear_str(&read_buf));
@@ -92,13 +89,14 @@ char	*get_next_line(int fd)
 		if (read_result <= 0)
 			break ;
 		if (!read_buf)
-			read_buf = ft_strdup(buf);
+			read_buf = ft_strdup(buf, read_result);
 		else
-			read_buf = ft_strjoin(read_buf, buf);
-		if (check_nl(read_buf) != -1)
+			read_buf = ft_strjoin(read_buf, buf, read_result);
+		if (check_nl(buf) != -1)
 			break ;
 	}
-	ret_str = get_ret_str(&read_buf);
-	read_buf = get_new_buf(read_buf);
+	idx = check_nl(read_buf);
+	ret_str = get_ret_str(&read_buf, &idx);
+	read_buf = get_new_buf(read_buf, &idx);
 	return (ret_str);
 }
