@@ -6,11 +6,21 @@
 /*   By: changhyl <changhyl@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 10:15:19 by changhyl          #+#    #+#             */
-/*   Updated: 2023/03/30 17:06:57 by changhyl         ###   ########.fr       */
+/*   Updated: 2023/03/30 19:39:34 by changhyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+size_t	ft_strlen(const	char *s)
+{
+	size_t	len;
+
+	len = 0;
+	while (*(s + len) != '\0')
+		len++;
+	return (len);
+}
 
 char	*ft_clear_str(char **str)
 {
@@ -22,19 +32,9 @@ char	*ft_clear_str(char **str)
 	return (NULL);
 }
 
-size_t	ft_strlen(const	char *s)
+char	*ft_strdup(char *s1, size_t len, size_t *tot_len)
 {
-	int	len;
-
-	len = 0;
-	while (*(s + len) != '\0')
-		len++;
-	return (len);
-}
-
-char	*ft_strdup(char *s1, int len)
-{
-	int		i;
+	size_t	i;
 	char	*str;
 
 	if (!s1)
@@ -48,36 +48,38 @@ char	*ft_strdup(char *s1, int len)
 		*(str + i) = *(s1 + i);
 		i++;
 	}
+	*tot_len = i;
 	*(str + i) = '\0';
 	return (str);
 }
 
-char	*ft_strjoin(char *s1, char *s2, size_t len1, size_t len2)
+char	*ft_strjoin(char *s1, char *s2, size_t *len1, size_t len2)
 {
 	char	*ret_str;
 	size_t	i;
 
-	ret_str = (char *)malloc(sizeof(char) * (len1 + len2 + 1));
+	ret_str = (char *)malloc(sizeof(char) * (*len1 + len2 + 1));
 	if (!ret_str)
 		return (ft_clear_str(&s1));
 	i = 0;
-	while (i < len1)
+	while (i < *len1)
 	{
 		*(ret_str + i) = *(s1 + i);
 		i++;
 	}
-	while (i < len2 + len1)
+	while (i < len2 + *len1)
 	{
-		*(ret_str + i) = *(s2 + i - len1);
+		*(ret_str + i) = *(s2 + i - *len1);
 		i++;
 	}
+	*len1 = i;
 	*(ret_str + i) = '\0';
 	free(s1);
 	s1 = NULL;
 	return (ret_str);
 }
 
-char	*ft_substr(char *s, unsigned int start, size_t len, size_t s_len)
+char	*ft_substr(char *s, unsigned int start, size_t len, size_t tot_len)
 {
 	char		*ret_str;
 	size_t		i;
@@ -85,7 +87,7 @@ char	*ft_substr(char *s, unsigned int start, size_t len, size_t s_len)
 
 	i = 0;
 	real_len = 0;
-	while (real_len + start < s_len && real_len < len)
+	while (real_len + start < tot_len && real_len < len)
 		real_len++;
 	ret_str = (char *)malloc(sizeof(char) * (real_len + 1));
 	if (!ret_str)
