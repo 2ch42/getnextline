@@ -6,7 +6,7 @@
 /*   By: changhyl <changhyl@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 10:14:56 by changhyl          #+#    #+#             */
-/*   Updated: 2023/03/26 18:07:08 by changhyl         ###   ########.fr       */
+/*   Updated: 2023/03/30 17:08:10 by changhyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	check_nl(char *str)
 	return (-1);
 }
 
-static char	*get_ret_str(char **str, int idx)
+static char	*get_ret_str(char **str, int idx, int len)
 {
 	char	*ret_str;
 
@@ -38,7 +38,7 @@ static char	*get_ret_str(char **str, int idx)
 		return (NULL);
 	if (idx == -1)
 		return (*str);
-	ret_str = ft_substr(*str, 0, idx + 1);
+	ret_str = ft_substr(*str, 0, idx + 1, len);
 	if (!ret_str)
 		return (ft_clear_str(str));
 	return (ret_str);
@@ -54,7 +54,7 @@ static char	*get_new_buf(char **str, int idx, int len)
 		return (ft_clear_str(str));
 	if (idx == -1)
 		return (NULL);
-	ret_str = ft_substr(*str, idx + 1, len - idx - 1);
+	ret_str = ft_substr(*str, idx + 1, len - idx - 1, len);
 	free(*str);
 	*str = NULL;
 	return (ret_str);
@@ -66,7 +66,7 @@ char	*ret_and_buf(char **str, int len)
 	int		idx;
 
 	idx = check_nl(*str);
-	ret_str = get_ret_str(str, idx);
+	ret_str = get_ret_str(str, idx, len);
 	*str = get_new_buf(str, idx, len);
 	return (ret_str);
 }

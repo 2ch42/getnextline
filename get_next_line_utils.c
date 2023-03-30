@@ -6,7 +6,7 @@
 /*   By: changhyl <changhyl@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 10:15:19 by changhyl          #+#    #+#             */
-/*   Updated: 2023/03/26 15:54:22 by changhyl         ###   ########.fr       */
+/*   Updated: 2023/03/30 17:06:57 by changhyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ char	*ft_strjoin(char *s1, char *s2, size_t len1, size_t len2)
 	return (ret_str);
 }
 
-char	*ft_substr(char *s, unsigned int start, size_t len)
+char	*ft_substr(char *s, unsigned int start, size_t len, size_t s_len)
 {
 	char		*ret_str;
 	size_t		i;
@@ -85,7 +85,7 @@ char	*ft_substr(char *s, unsigned int start, size_t len)
 
 	i = 0;
 	real_len = 0;
-	while (real_len + start < ft_strlen(s) && real_len < len)
+	while (real_len + start < s_len && real_len < len)
 		real_len++;
 	ret_str = (char *)malloc(sizeof(char) * (real_len + 1));
 	if (!ret_str)
