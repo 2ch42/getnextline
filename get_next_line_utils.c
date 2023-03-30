@@ -12,19 +12,14 @@
 
 #include "get_next_line.h"
 
-void	*ft_memset(void *b, int c, size_t len)
+char	*ft_clear_str(char **str)
 {
-	unsigned int	i;
-	unsigned char	*str;
-
-	str = (unsigned char *)b;
-	i = 0;
-	while (i < len)
+	if (*str != NULL)
 	{
-		*(str + i) = (unsigned char)c;
-		i++;
+		free(*str);
+		*str = NULL;
 	}
-	return (b);
+	return (NULL);
 }
 
 size_t	ft_strlen(const	char *s)
@@ -57,25 +52,23 @@ char	*ft_strdup(char *s1, int len)
 	return (str);
 }
 
-char	*ft_strjoin(char *s1, char *s2, int s2_len)
+char	*ft_strjoin(char *s1, char *s2, size_t len1, size_t len2)
 {
 	char	*ret_str;
-	size_t	s1_len;
 	size_t	i;
 
-	s1_len = ft_strlen(s1);
-	ret_str = (char *)malloc(sizeof(char) * (s1_len + s2_len + 1));
+	ret_str = (char *)malloc(sizeof(char) * (len1 + len2 + 1));
 	if (!ret_str)
 		return (ft_clear_str(&s1));
 	i = 0;
-	while (i < s1_len)
+	while (i < len1)
 	{
 		*(ret_str + i) = *(s1 + i);
 		i++;
 	}
-	while (i < s2_len + s1_len)
+	while (i < len2 + len1)
 	{
-		*(ret_str + i) = *(s2 + i - s1_len);
+		*(ret_str + i) = *(s2 + i - len1);
 		i++;
 	}
 	*(ret_str + i) = '\0';

@@ -28,17 +28,7 @@ static int	check_nl(char *str)
 	return (-1);
 }
 
-char	*ft_clear_str(char **str)
-{
-	if (*str != NULL)
-	{
-		free(*str);
-		*str = NULL;
-	}
-	return (NULL);
-}
-
-static char	*get_ret_str(char **str, int *idx_addr)
+static char	*get_ret_str(char **str, int idx)
 {
 	char	*ret_str;
 
@@ -46,57 +36,66 @@ static char	*get_ret_str(char **str, int *idx_addr)
 		return (NULL);
 	if (**str == '\0')
 		return (NULL);
-	if (*idx_addr == -1)
+	if (idx == -1)
 		return (*str);
-	ret_str = ft_substr(*str, 0, *idx_addr + 1);
+	ret_str = ft_substr(*str, 0, idx + 1);
 	if (!ret_str)
 		return (ft_clear_str(str));
 	return (ret_str);
 }
 
-static char	*get_new_buf(char *str, int *idx_addr)
+static char	*get_new_buf(char **str, int idx, int len)
 {
-	int		len;
 	char	*ret_str;
 
-	if (!str)
+	if (!(*str))
 		return (NULL);
-	if (*str == '\0')
-		return (ft_clear_str(&str));
-	len = ft_strlen(str);
-	if (*idx_addr == -1)
+	if (**str == '\0')
+		return (ft_clear_str(str));
+	if (idx == -1)
 		return (NULL);
-	ret_str = ft_substr(str, *idx_addr + 1, len - *idx_addr - 1);
-	free(str);
-	str = NULL;
+	ret_str = ft_substr(*str, idx + 1, len - idx - 1);
+	free(*str);
+	*str = NULL;
+	return (ret_str);
+}
+
+char	*ret_and_buf(char **str, int len)
+{
+	char	*ret_str;
+	int		idx;
+
+	idx = check_nl(*str);
+	ret_str = get_ret_str(str, idx);
+	*str = get_new_buf(str, idx, len);
 	return (ret_str);
 }
 
 char	*get_next_line(int fd)
 {
 	char		buf[BUFFER_SIZE + 1];
-	char		*ret_str;
 	static char	*read_buf;
 	int			read_result;
-	int			idx;
+	int			len;
 
 	if (read(fd, 0, 0) < 0 || BUFFER_SIZE <= 0)
 		return (ft_clear_str(&read_buf));
+	len = 0;
+	if (read_buf != NULL)
+		len += ft_strlen(read_buf);
 	while (1)
 	{
-		ft_memset(buf, 0, BUFFER_SIZE + 1);
 		read_result = read(fd, buf, BUFFER_SIZE);
+		buf[read_result] = 0;
 		if (read_result <= 0)
 			break ;
 		if (!read_buf)
 			read_buf = ft_strdup(buf, read_result);
 		else
-			read_buf = ft_strjoin(read_buf, buf, read_result);
+			read_buf = ft_strjoin(read_buf, buf, len, read_result);
+		len += read_result;
 		if (check_nl(buf) != -1)
 			break ;
 	}
-	idx = check_nl(read_buf);
-	ret_str = get_ret_str(&read_buf, &idx);
-	read_buf = get_new_buf(read_buf, &idx);
-	return (ret_str);
+	return (ret_and_buf(&read_buf, len));
 }

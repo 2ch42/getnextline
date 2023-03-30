@@ -24,7 +24,7 @@ void	*ft_memset(void *b, int c, size_t len);
 size_t	ft_strlen(const char *s);
 char	*ft_clear_str(char **str);
 char	*ft_strdup(char *s1, int len);
-char	*ft_strjoin(char *s1, char *s2, int s2_len);
+char	*ft_strjoin(char *s1, char *s2, size_t len1, size_t len2);
 char	*ft_substr(char *s, unsigned int start, size_t len);
 char	*get_next_line(int fd);
 
