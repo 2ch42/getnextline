@@ -6,7 +6,7 @@
 /*   By: changhyl <changhyl@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 21:21:04 by changhyl          #+#    #+#             */
-/*   Updated: 2023/03/30 19:39:48 by changhyl         ###   ########.fr       */
+/*   Updated: 2023/03/30 19:54:58 by changhyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 #  define BUFFER_SIZE 42
 # endif
 
-void	*ft_memset(void *b, int c, size_t len);
 size_t	ft_strlen(const char *s);
 char	*ft_clear_str(char **str);
 char	*ft_strdup(char *s1, size_t len, size_t *tot_len);
